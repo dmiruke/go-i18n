@@ -10,12 +10,12 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-// Bundle stores the translations for multiple languages.
+// Bundle stores all translations and pluralization rules.
 // Generally, your application should only need a single bundle
 // that is initialized early in your application's lifecycle.
 type Bundle struct {
-	// DefaultLocale string
 	Translations map[string]map[string]*Translation
+	PluralSpecs  map[string]*PluralSpec
 }
 
 // LoadTranslationFile loads the bytes from path
@@ -38,7 +38,7 @@ func (b *Bundle) MustLoadTranslationFile(path string) {
 
 // LanguageTagRegex Matches language tags like en-US, and zh-Hans-CN.
 // Language tags are case-insensitive.
-var LanguageTagRegex = regexp.MustCompile("[a-zA-Z]{2,}(-[a-zA-Z]{2,})+")
+var LanguageTagRegex = regexp.MustCompile(`[a-zA-Z]{2,}([\-_][a-zA-Z]{2,})+`)
 
 // ParseTranslationFileBytes parses the bytes in buf to add translations to the bundle.
 // It is useful for parsing translation files embedded with go-bindata.
@@ -54,8 +54,7 @@ func (b *Bundle) ParseTranslationFileBytes(buf []byte, path string) error {
 	}
 	langTags := LanguageTagRegex.FindAllString(path, -1)
 	langTag := langTags[len(langTags)-1]
-	b.AddTranslations(langTag, translations...)
-	return nil
+	return b.AddTranslations(langTag, translations...)
 }
 
 // MustParseTranslationFileBytes is similar to ParseTranslationFileBytes
@@ -68,7 +67,22 @@ func (b *Bundle) MustParseTranslationFileBytes(buf []byte, path string) {
 
 // AddTranslations adds translations for a language.
 // It is useful if your translations are in a format not supported by ParseTranslationFileBytes.
-func (b *Bundle) AddTranslations(langTag string, translations ...*Translation) {
+func (b *Bundle) AddTranslations(langTag string, translations ...*Translation) error {
+	if b.PluralSpecs == nil {
+		b.PluralSpecs = DefaultPluralSpecs()
+	}
+	pluralID := langTag
+	for i, r := range langTag {
+		if r == '-' || r == '_' {
+			pluralID = langTag[:i]
+			break
+		}
+	}
+	pluralSpec := b.PluralSpecs[pluralID]
+	if pluralSpec == nil {
+		return fmt.Errorf("no plural spec registered for %s", pluralID)
+	}
+	b.PluralSpecs[langTag] = pluralSpec
 	if b.Translations == nil {
 		b.Translations = make(map[string]map[string]*Translation)
 	}
@@ -78,17 +92,7 @@ func (b *Bundle) AddTranslations(langTag string, translations ...*Translation) {
 	for _, t := range translations {
 		b.Translations[langTag][t.ID] = t
 	}
-}
-
-type Translation struct {
-	ID          string
-	Description string
-	Zero        string
-	One         string
-	Two         string
-	Few         string
-	Many        string
-	Other       string
+	return nil
 }
 
 func parseTranslations(buf []byte, path string) ([]*Translation, error) {

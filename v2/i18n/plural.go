@@ -11,12 +11,12 @@ type Plural string
 // All defined plural categories.
 const (
 	Invalid Plural = "invalid"
-	Zero           = "zero"
-	One            = "one"
-	Two            = "two"
-	Few            = "few"
-	Many           = "many"
-	Other          = "other"
+	Zero    Plural = "zero"
+	One     Plural = "one"
+	Two     Plural = "two"
+	Few     Plural = "few"
+	Many    Plural = "many"
+	Other   Plural = "other"
 )
 
 // NewPlural returns src as a Plural
