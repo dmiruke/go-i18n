@@ -5,7 +5,7 @@ package i18n
 import "testing"
 
 func TestBmBoDzIdIgIiInJaJboJvJwKdeKeaKmKoLktLoMsMyNqoRootSahSesSgThToViWoYoYueZh(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, Other, []string{"0~15", "100", "1000", "10000", "100000", "1000000"})
 	tests = appendDecimalTests(tests, Other, []string{"0.0~1.5", "10.0", "100.0", "1000.0", "10000.0", "100000.0", "1000000.0"})
@@ -17,7 +17,7 @@ func TestBmBoDzIdIgIiInJaJboJvJwKdeKeaKmKoLktLoMsMyNqoRootSahSesSgThToViWoYoYueZ
 }
 
 func TestAmAsBnFaGuHiKnMrZu(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"0", "1"})
 	tests = appendDecimalTests(tests, One, []string{"0.0~1.0", "0.00~0.04"})
@@ -32,7 +32,7 @@ func TestAmAsBnFaGuHiKnMrZu(t *testing.T) {
 }
 
 func TestFfFrHyKab(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"0", "1"})
 	tests = appendDecimalTests(tests, One, []string{"0.0~1.5"})
@@ -47,7 +47,7 @@ func TestFfFrHyKab(t *testing.T) {
 }
 
 func TestPt(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"0", "1"})
 	tests = appendDecimalTests(tests, One, []string{"0.0~1.5"})
@@ -62,7 +62,7 @@ func TestPt(t *testing.T) {
 }
 
 func TestAstCaDeEnEtFiFyGlItJiNlSvSwUrYi(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"1"})
 
@@ -76,7 +76,7 @@ func TestAstCaDeEnEtFiFyGlItJiNlSvSwUrYi(t *testing.T) {
 }
 
 func TestSi(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"0", "1"})
 	tests = appendDecimalTests(tests, One, []string{"0.0", "0.1", "1.0", "0.00", "0.01", "1.00", "0.000", "0.001", "1.000", "0.0000", "0.0001", "1.0000"})
@@ -91,7 +91,7 @@ func TestSi(t *testing.T) {
 }
 
 func TestAkBhGuwLnMgNsoPaTiWa(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"0", "1"})
 	tests = appendDecimalTests(tests, One, []string{"0.0", "1.0", "0.00", "1.00", "0.000", "1.000", "0.0000", "1.0000"})
@@ -106,7 +106,7 @@ func TestAkBhGuwLnMgNsoPaTiWa(t *testing.T) {
 }
 
 func TestTzm(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"0", "1", "11~24"})
 	tests = appendDecimalTests(tests, One, []string{"0.0", "1.0", "11.0", "12.0", "13.0", "14.0", "15.0", "16.0", "17.0", "18.0", "19.0", "20.0", "21.0", "22.0", "23.0", "24.0"})
@@ -121,7 +121,7 @@ func TestTzm(t *testing.T) {
 }
 
 func TestAfAsaAzBemBezBgBrxCeCggChrCkbDvEeElEoEsEuFoFurGswHaHawHuJgoJmcKaKajKcgKkKkjKlKsKsbKuKyLbLgMasMgoMlMnNahNbNdNeNnNnhNoNrNyNynOmOrOsPapPsRmRofRwkSaqSdhSehSnSoSqSsSsyStSyrTaTeTeoTigTkTnTrTsUgUzVeVoVunWaeXhXog(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"1"})
 	tests = appendDecimalTests(tests, One, []string{"1.0", "1.00", "1.000", "1.0000"})
@@ -136,7 +136,7 @@ func TestAfAsaAzBemBezBgBrxCeCggChrCkbDvEeElEoEsEuFoFurGswHaHawHuJgoJmcKaKajKcgK
 }
 
 func TestDa(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"1"})
 	tests = appendDecimalTests(tests, One, []string{"0.1~1.6"})
@@ -151,7 +151,7 @@ func TestDa(t *testing.T) {
 }
 
 func TestIs(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"1", "21", "31", "41", "51", "61", "71", "81", "101", "1001"})
 	tests = appendDecimalTests(tests, One, []string{"0.1~1.6", "10.1", "100.1", "1000.1"})
@@ -166,7 +166,7 @@ func TestIs(t *testing.T) {
 }
 
 func TestMk(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"1", "11", "21", "31", "41", "51", "61", "71", "101", "1001"})
 	tests = appendDecimalTests(tests, One, []string{"0.1", "1.1", "2.1", "3.1", "4.1", "5.1", "6.1", "7.1", "10.1", "100.1", "1000.1"})
@@ -181,7 +181,7 @@ func TestMk(t *testing.T) {
 }
 
 func TestFilTl(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"0~3", "5", "7", "8", "10~13", "15", "17", "18", "20", "21", "100", "1000", "10000", "100000", "1000000"})
 	tests = appendDecimalTests(tests, One, []string{"0.0~0.3", "0.5", "0.7", "0.8", "1.0~1.3", "1.5", "1.7", "1.8", "2.0", "2.1", "10.0", "100.0", "1000.0", "10000.0", "100000.0", "1000000.0"})
@@ -196,7 +196,7 @@ func TestFilTl(t *testing.T) {
 }
 
 func TestLvPrg(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, Zero, []string{"0", "10~20", "30", "40", "50", "60", "100", "1000", "10000", "100000", "1000000"})
 	tests = appendDecimalTests(tests, Zero, []string{"0.0", "10.0", "11.0", "12.0", "13.0", "14.0", "15.0", "16.0", "100.0", "1000.0", "10000.0", "100000.0", "1000000.0"})
@@ -214,7 +214,7 @@ func TestLvPrg(t *testing.T) {
 }
 
 func TestLag(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, Zero, []string{"0"})
 	tests = appendDecimalTests(tests, Zero, []string{"0.0", "0.00", "0.000", "0.0000"})
@@ -232,7 +232,7 @@ func TestLag(t *testing.T) {
 }
 
 func TestKsh(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, Zero, []string{"0"})
 	tests = appendDecimalTests(tests, Zero, []string{"0.0", "0.00", "0.000", "0.0000"})
@@ -250,7 +250,7 @@ func TestKsh(t *testing.T) {
 }
 
 func TestIuKwNaqSeSmaSmiSmjSmnSms(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"1"})
 	tests = appendDecimalTests(tests, One, []string{"1.0", "1.00", "1.000", "1.0000"})
@@ -268,7 +268,7 @@ func TestIuKwNaqSeSmaSmiSmjSmnSms(t *testing.T) {
 }
 
 func TestShi(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"0", "1"})
 	tests = appendDecimalTests(tests, One, []string{"0.0~1.0", "0.00~0.04"})
@@ -286,7 +286,7 @@ func TestShi(t *testing.T) {
 }
 
 func TestMoRo(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"1"})
 
@@ -302,7 +302,7 @@ func TestMoRo(t *testing.T) {
 }
 
 func TestBsHrShSr(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"1", "21", "31", "41", "51", "61", "71", "81", "101", "1001"})
 	tests = appendDecimalTests(tests, One, []string{"0.1", "1.1", "2.1", "3.1", "4.1", "5.1", "6.1", "7.1", "10.1", "100.1", "1000.1"})
@@ -320,7 +320,7 @@ func TestBsHrShSr(t *testing.T) {
 }
 
 func TestGd(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"1", "11"})
 	tests = appendDecimalTests(tests, One, []string{"1.0", "11.0", "1.00", "11.00", "1.000", "11.000", "1.0000"})
@@ -341,7 +341,7 @@ func TestGd(t *testing.T) {
 }
 
 func TestSl(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"1", "101", "201", "301", "401", "501", "601", "701", "1001"})
 
@@ -359,7 +359,7 @@ func TestSl(t *testing.T) {
 }
 
 func TestDsbHsb(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"1", "101", "201", "301", "401", "501", "601", "701", "1001"})
 	tests = appendDecimalTests(tests, One, []string{"0.1", "1.1", "2.1", "3.1", "4.1", "5.1", "6.1", "7.1", "10.1", "100.1", "1000.1"})
@@ -380,7 +380,7 @@ func TestDsbHsb(t *testing.T) {
 }
 
 func TestHeIw(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"1"})
 
@@ -398,7 +398,7 @@ func TestHeIw(t *testing.T) {
 }
 
 func TestCsSk(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"1"})
 
@@ -415,7 +415,7 @@ func TestCsSk(t *testing.T) {
 }
 
 func TestPl(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"1"})
 
@@ -432,7 +432,7 @@ func TestPl(t *testing.T) {
 }
 
 func TestBe(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"1", "21", "31", "41", "51", "61", "71", "81", "101", "1001"})
 	tests = appendDecimalTests(tests, One, []string{"1.0", "21.0", "31.0", "41.0", "51.0", "61.0", "71.0", "81.0", "101.0", "1001.0"})
@@ -452,7 +452,7 @@ func TestBe(t *testing.T) {
 }
 
 func TestLt(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"1", "21", "31", "41", "51", "61", "71", "81", "101", "1001"})
 	tests = appendDecimalTests(tests, One, []string{"1.0", "21.0", "31.0", "41.0", "51.0", "61.0", "71.0", "81.0", "101.0", "1001.0"})
@@ -472,7 +472,7 @@ func TestLt(t *testing.T) {
 }
 
 func TestMt(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"1"})
 	tests = appendDecimalTests(tests, One, []string{"1.0", "1.00", "1.000", "1.0000"})
@@ -493,7 +493,7 @@ func TestMt(t *testing.T) {
 }
 
 func TestRuUk(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"1", "21", "31", "41", "51", "61", "71", "81", "101", "1001"})
 
@@ -510,7 +510,7 @@ func TestRuUk(t *testing.T) {
 }
 
 func TestBr(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"1", "21", "31", "41", "51", "61", "81", "101", "1001"})
 	tests = appendDecimalTests(tests, One, []string{"1.0", "21.0", "31.0", "41.0", "51.0", "61.0", "81.0", "101.0", "1001.0"})
@@ -534,7 +534,7 @@ func TestBr(t *testing.T) {
 }
 
 func TestGa(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"1"})
 	tests = appendDecimalTests(tests, One, []string{"1.0", "1.00", "1.000", "1.0000"})
@@ -558,7 +558,7 @@ func TestGa(t *testing.T) {
 }
 
 func TestGv(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, One, []string{"1", "11", "21", "31", "41", "51", "61", "71", "101", "1001"})
 
@@ -577,7 +577,7 @@ func TestGv(t *testing.T) {
 }
 
 func TestArArs(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, Zero, []string{"0"})
 	tests = appendDecimalTests(tests, Zero, []string{"0.0", "0.00", "0.000", "0.0000"})
@@ -604,7 +604,7 @@ func TestArArs(t *testing.T) {
 }
 
 func TestCy(t *testing.T) {
-	var tests []pluralTest
+	var tests []pluralFormTest
 
 	tests = appendIntegerTests(tests, Zero, []string{"0"})
 	tests = appendDecimalTests(tests, Zero, []string{"0.0", "0.00", "0.000", "0.0000"})

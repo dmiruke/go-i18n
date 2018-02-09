@@ -6,7 +6,7 @@ package i18n
 type Translation struct {
 	ID          string
 	Description string
-	PluralForms map[Plural]*Template
+	PluralForms map[PluralForm]*Template
 }
 
 // NewTranslation returns a new translation parsed from data.
@@ -15,14 +15,14 @@ type Translation struct {
 func NewTranslation(id string, data map[string]string) (*Translation, error) {
 	translation := &Translation{
 		ID:          id,
-		PluralForms: make(map[Plural]*Template),
+		PluralForms: make(map[PluralForm]*Template),
 	}
 	for k, v := range data {
 		switch k {
 		case "description":
 			translation.Description = v
 		default:
-			plural, err := NewPlural(k)
+			pluralForm, err := NewPluralForm(k)
 			if err != nil {
 				return nil, err
 			}
@@ -30,7 +30,7 @@ func NewTranslation(id string, data map[string]string) (*Translation, error) {
 			if err != nil {
 				return nil, err
 			}
-			translation.PluralForms[plural] = tmpl
+			translation.PluralForms[pluralForm] = tmpl
 		}
 	}
 	return translation, nil
@@ -47,7 +47,7 @@ func MustNewTranslation(id string, data map[string]string) *Translation {
 
 // Translate returns the translated string for the plural form
 // and template data.
-func (t *Translation) Translate(plural Plural, data interface{}) string {
-	tmpl := t.PluralForms[plural]
+func (t *Translation) Translate(pluralForm PluralForm, data interface{}) string {
+	tmpl := t.PluralForms[pluralForm]
 	return tmpl.Execute(data)
 }

@@ -6,18 +6,18 @@ import "strings"
 // http://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html
 // http://unicode.org/reports/tr35/tr35-numbers.html#Operands
 type PluralRule struct {
-	Plurals    map[Plural]struct{}
-	PluralFunc func(*Operands) Plural
+	PluralForms    map[PluralForm]struct{}
+	PluralFormFunc func(*Operands) PluralForm
 }
 
-// Plural returns the plural category for number as defined by
-// the language's CLDR plural rules.
-func (ps *PluralRule) Plural(number interface{}) (Plural, error) {
+// PluralForm returns the plural form of the number
+// as defined by the language's CLDR plural rules.
+func (ps *PluralRule) PluralForm(number interface{}) (PluralForm, error) {
 	ops, err := newOperands(number)
 	if err != nil {
 		return Invalid, err
 	}
-	return ps.PluralFunc(ops), nil
+	return ps.PluralFormFunc(ops), nil
 }
 
 func normalizePluralRuleID(id string) string {
@@ -33,9 +33,9 @@ func addPluralRules(rules map[string]*PluralRule, ids []string, ps *PluralRule) 
 	}
 }
 
-func newPluralSet(plurals ...Plural) map[Plural]struct{} {
-	set := make(map[Plural]struct{}, len(plurals))
-	for _, plural := range plurals {
+func newPluralFormSet(pluralForms ...PluralForm) map[PluralForm]struct{} {
+	set := make(map[PluralForm]struct{}, len(pluralForms))
+	for _, plural := range pluralForms {
 		set[plural] = struct{}{}
 	}
 	return set

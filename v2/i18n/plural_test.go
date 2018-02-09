@@ -4,11 +4,11 @@ import (
 	"testing"
 )
 
-func TestNewPlural(t *testing.T) {
+func TestNewPluralForm(t *testing.T) {
 	tests := []struct {
-		src    string
-		plural Plural
-		err    bool
+		src        string
+		pluralForm PluralForm
+		err        bool
 	}{
 		{"zero", Zero, false},
 		{"one", One, false},
@@ -19,10 +19,10 @@ func TestNewPlural(t *testing.T) {
 		{"asdf", Invalid, true},
 	}
 	for _, test := range tests {
-		plural, err := NewPlural(test.src)
+		pluralForm, err := NewPluralForm(test.src)
 		wrongErr := (err != nil && !test.err) || (err == nil && test.err)
-		if plural != test.plural || wrongErr {
-			t.Errorf("NewPlural(%#v) returned %#v,%#v; expected %#v", test.src, plural, err, test.plural)
+		if pluralForm != test.pluralForm || wrongErr {
+			t.Errorf("NewPlural(%#v) returned %#v,%#v; expected %#v", test.src, pluralForm, err, test.pluralForm)
 		}
 	}
 }

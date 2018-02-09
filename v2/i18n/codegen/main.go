@@ -86,8 +86,8 @@ func DefaultPluralRules() map[string]*PluralRule {
 
 {{range .PluralGroups}}
 	addPluralRules(rules, {{printf "%#v" .SplitLocales}}, &PluralRule{
-		Plurals: newPluralSet({{range $i, $e := .PluralRules}}{{if $i}}, {{end}}{{$e.CountTitle}}{{end}}),
-		PluralFunc: func(ops *Operands) Plural { {{range .PluralRules}}{{if .GoCondition}}
+		PluralForms: newPluralFormSet({{range $i, $e := .PluralRules}}{{if $i}}, {{end}}{{$e.CountTitle}}{{end}}),
+		PluralFormFunc: func(ops *Operands) PluralForm { {{range .PluralRules}}{{if .GoCondition}}
 			// {{.Condition}}
 			if {{.GoCondition}} {
 				return {{.CountTitle}}

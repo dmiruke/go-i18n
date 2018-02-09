@@ -4,24 +4,24 @@ import (
 	"fmt"
 )
 
-// Plural represents a language pluralization form as defined here:
+// PluralForm represents a language pluralization form as defined here:
 // http://cldr.unicode.org/index/cldr-spec/plural-rules
-type Plural string
+type PluralForm string
 
 // All defined plural categories.
 const (
-	Invalid Plural = "invalid"
-	Zero    Plural = "zero"
-	One     Plural = "one"
-	Two     Plural = "two"
-	Few     Plural = "few"
-	Many    Plural = "many"
-	Other   Plural = "other"
+	Invalid PluralForm = "invalid"
+	Zero    PluralForm = "zero"
+	One     PluralForm = "one"
+	Two     PluralForm = "two"
+	Few     PluralForm = "few"
+	Many    PluralForm = "many"
+	Other   PluralForm = "other"
 )
 
-// NewPlural returns src as a Plural
-// or Invalid and a non-nil error if src is not a valid Plural.
-func NewPlural(src string) (Plural, error) {
+// NewPluralForm returns src as a PluralForm
+// or Invalid and a non-nil error if src is not a valid PluralForm.
+func NewPluralForm(src string) (PluralForm, error) {
 	switch src {
 	case "zero":
 		return Zero, nil
@@ -36,5 +36,5 @@ func NewPlural(src string) (Plural, error) {
 	case "other":
 		return Other, nil
 	}
-	return Invalid, fmt.Errorf("invalid plural category %s", src)
+	return Invalid, fmt.Errorf("invalid plural form %s", src)
 }

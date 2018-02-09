@@ -31,11 +31,11 @@ func (t *Translator) Translate(id, defaultTranslation string, args ...interface{
 			continue
 		}
 		pluralCount, data := parseArgs(args)
-		plural, err := pluralRule.Plural(pluralCount)
+		pluralForm, err := pluralRule.PluralForm(pluralCount)
 		if err != nil {
 			return fmt.Sprintf("[ERR][%s] %s", id, err.Error())
 		}
-		translated := translation.Translate(plural, data)
+		translated := translation.Translate(pluralForm, data)
 		if translated == "" {
 			continue
 		}
