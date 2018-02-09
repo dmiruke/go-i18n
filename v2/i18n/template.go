@@ -7,53 +7,46 @@ import (
 	gotemplate "text/template"
 )
 
-type template struct {
+// TODO: rename tmpl, src
+type Template struct {
 	tmpl *gotemplate.Template
 	src  string
 }
 
-func newTemplate(src string) (*template, error) {
-	if src == "" {
-		return new(template), nil
-	}
-
-	var tmpl template
+// NewTemplate returns a new template from src.
+func NewTemplate(src string) (*Template, error) {
+	var tmpl Template
 	err := tmpl.parseTemplate(src)
 	return &tmpl, err
 }
 
-func mustNewTemplate(src string) *template {
-	t, err := newTemplate(src)
-	if err != nil {
-		panic(err)
-	}
-	return t
-}
-
-func (t *template) String() string {
+func (t *Template) String() string {
 	return t.src
 }
 
-func (t *template) Execute(args interface{}) string {
+// Execute executes the translation template for the given data.
+func (t *Template) Execute(data interface{}) string {
 	if t.tmpl == nil {
 		return t.src
 	}
 	var buf bytes.Buffer
-	if err := t.tmpl.Execute(&buf, args); err != nil {
+	if err := t.tmpl.Execute(&buf, data); err != nil {
 		return err.Error()
 	}
 	return buf.String()
 }
 
-func (t *template) MarshalText() ([]byte, error) {
+// MarshalText implements the TextMarshaler interface.
+func (t *Template) MarshalText() ([]byte, error) {
 	return []byte(t.src), nil
 }
 
-func (t *template) UnmarshalText(src []byte) error {
+// UnmarshalText implements the TextUnmarshaler interface.
+func (t *Template) UnmarshalText(src []byte) error {
 	return t.parseTemplate(string(src))
 }
 
-func (t *template) parseTemplate(src string) (err error) {
+func (t *Template) parseTemplate(src string) (err error) {
 	t.src = src
 	if strings.Contains(src, "{{") {
 		t.tmpl, err = gotemplate.New(src).Parse(src)
@@ -61,5 +54,5 @@ func (t *template) parseTemplate(src string) (err error) {
 	return
 }
 
-var _ = encoding.TextMarshaler(&template{})
-var _ = encoding.TextUnmarshaler(&template{})
+var _ = encoding.TextMarshaler(&Template{})
+var _ = encoding.TextUnmarshaler(&Template{})

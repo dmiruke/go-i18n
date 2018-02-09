@@ -7,6 +7,25 @@ import (
 	"github.com/nicksnyder/go-i18n/v2/i18n"
 )
 
+var simpleTranslation = i18n.MustNewTranslation("simple", map[string]string{
+	"other": "simple translation",
+})
+
+var detailTranslation = i18n.MustNewTranslation("detail", map[string]string{
+	"description": "detail description",
+	"other":       "detail translation",
+})
+
+var everythingTranslation = i18n.MustNewTranslation("everything", map[string]string{
+	"description": "everything description",
+	"zero":        "zero translation",
+	"one":         "one translation",
+	"two":         "two translation",
+	"few":         "few translation",
+	"many":        "many translation",
+	"other":       "other translation",
+})
+
 func TestJSON(t *testing.T) {
 	var bundle i18n.Bundle
 	bundle.MustParseTranslationFileBytes([]byte(`{
@@ -26,25 +45,9 @@ func TestJSON(t *testing.T) {
 	}
 }`), "en-US.json")
 
-	expectTranslation(t, bundle, "en-US", "simple", &i18n.Translation{
-		ID:    "simple",
-		Other: "simple translation",
-	})
-	expectTranslation(t, bundle, "en-US", "detail", &i18n.Translation{
-		ID:          "detail",
-		Other:       "detail translation",
-		Description: "detail description",
-	})
-	expectTranslation(t, bundle, "en-US", "everything", &i18n.Translation{
-		ID:          "everything",
-		Description: "everything description",
-		Zero:        "zero translation",
-		One:         "one translation",
-		Two:         "two translation",
-		Few:         "few translation",
-		Many:        "many translation",
-		Other:       "other translation",
-	})
+	expectTranslation(t, bundle, "en-US", "simple", simpleTranslation)
+	expectTranslation(t, bundle, "en-US", "detail", detailTranslation)
+	expectTranslation(t, bundle, "en-US", "everything", everythingTranslation)
 }
 
 func TestYAML(t *testing.T) {
@@ -69,25 +72,9 @@ everything:
   other: other translation
 `), "en-US.yaml")
 
-	expectTranslation(t, bundle, "en-US", "simple", &i18n.Translation{
-		ID:    "simple",
-		Other: "simple translation",
-	})
-	expectTranslation(t, bundle, "en-US", "detail", &i18n.Translation{
-		ID:          "detail",
-		Other:       "detail translation",
-		Description: "detail description",
-	})
-	expectTranslation(t, bundle, "en-US", "everything", &i18n.Translation{
-		ID:          "everything",
-		Description: "everything description",
-		Zero:        "zero translation",
-		One:         "one translation",
-		Two:         "two translation",
-		Few:         "few translation",
-		Many:        "many translation",
-		Other:       "other translation",
-	})
+	expectTranslation(t, bundle, "en-US", "simple", simpleTranslation)
+	expectTranslation(t, bundle, "en-US", "detail", detailTranslation)
+	expectTranslation(t, bundle, "en-US", "everything", everythingTranslation)
 }
 
 func TestTOML(t *testing.T) {
@@ -112,25 +99,9 @@ many = "many translation"
 other = "other translation"
 `), "en-US.toml")
 
-	expectTranslation(t, bundle, "en-US", "simple", &i18n.Translation{
-		ID:    "simple",
-		Other: "simple translation",
-	})
-	expectTranslation(t, bundle, "en-US", "detail", &i18n.Translation{
-		ID:          "detail",
-		Other:       "detail translation",
-		Description: "detail description",
-	})
-	expectTranslation(t, bundle, "en-US", "everything", &i18n.Translation{
-		ID:          "everything",
-		Description: "everything description",
-		Zero:        "zero translation",
-		One:         "one translation",
-		Two:         "two translation",
-		Few:         "few translation",
-		Many:        "many translation",
-		Other:       "other translation",
-	})
+	expectTranslation(t, bundle, "en-US", "simple", simpleTranslation)
+	expectTranslation(t, bundle, "en-US", "detail", detailTranslation)
+	expectTranslation(t, bundle, "en-US", "everything", everythingTranslation)
 }
 
 func expectTranslation(t *testing.T, bundle i18n.Bundle, langTag, translationID string, expected *i18n.Translation) {

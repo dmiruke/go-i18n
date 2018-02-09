@@ -125,52 +125,38 @@ func parseTranslations(buf []byte, path string) ([]*Translation, error) {
 
 	var translations []*Translation
 	for id, data := range raw {
-		switch v := data.(type) {
+		strdata := make(map[string]string)
+		switch value := data.(type) {
 		case string:
-			translations = append(translations, &Translation{
-				ID:    id,
-				Other: v,
-			})
+			strdata["other"] = value
 		case map[string]interface{}:
-			description, _ := v["description"].(string)
-			zero, _ := v["zero"].(string)
-			one, _ := v["one"].(string)
-			two, _ := v["two"].(string)
-			few, _ := v["few"].(string)
-			many, _ := v["many"].(string)
-			other, _ := v["other"].(string)
-			translations = append(translations, &Translation{
-				ID:          id,
-				Description: description,
-				Zero:        zero,
-				One:         one,
-				Two:         two,
-				Few:         few,
-				Many:        many,
-				Other:       other,
-			})
+			for k, v := range value {
+				vstr, ok := v.(string)
+				if !ok {
+					return nil, fmt.Errorf("expected [%s][%s][%s] to be a string but got %#v", path, id, k, v)
+				}
+				strdata[k] = vstr
+			}
 		case map[interface{}]interface{}:
-			description, _ := v["description"].(string)
-			zero, _ := v["zero"].(string)
-			one, _ := v["one"].(string)
-			two, _ := v["two"].(string)
-			few, _ := v["few"].(string)
-			many, _ := v["many"].(string)
-			other, _ := v["other"].(string)
-			translations = append(translations, &Translation{
-				ID:          id,
-				Description: description,
-				Zero:        zero,
-				One:         one,
-				Two:         two,
-				Few:         few,
-				Many:        many,
-				Other:       other,
-			})
+			for k, v := range value {
+				kstr, ok := k.(string)
+				if !ok {
+					return nil, fmt.Errorf("[%s][%s] has a non-string key %#v", path, id, k)
+				}
+				vstr, ok := v.(string)
+				if !ok {
+					return nil, fmt.Errorf("[%s][%s][%s] has a non-string value %#v", path, id, k, v)
+				}
+				strdata[kstr] = vstr
+			}
 		default:
-			return nil, fmt.Errorf("translation key %s in %s has invalid value: %#v", id, path, v)
+			return nil, fmt.Errorf("translation key %s in %s has invalid value: %#v", id, path, value)
 		}
+		t, err := NewTranslation(id, strdata)
+		if err != nil {
+			return nil, err
+		}
+		translations = append(translations, t)
 	}
-
 	return translations, nil
 }

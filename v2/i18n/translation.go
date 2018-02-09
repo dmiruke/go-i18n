@@ -1,42 +1,51 @@
 package i18n
 
+// Translation contains the data for a single translation.
 type Translation struct {
 	ID          string
 	Description string
-	Zero        string
-	One         string
-	Two         string
-	Few         string
-	Many        string
-	Other       string
+	PluralForms map[Plural]*Template
 }
 
-// TODO
-func (t *Translation) Translate(plural Plural, data interface{}) string {
-	var translated string
-	switch plural {
-	case Zero:
-		translated = t.Zero
-	case One:
-		translated = t.One
-	case Two:
-		translated = t.Two
-	case Few:
-		translated = t.Few
-	case Many:
-		translated = t.Many
-	case Other:
-		translated = t.Other
+// NewTranslation returns a new translation parsed from data.
+// It returns an error if data contains invalid plural forms
+// or invalid translation templates.
+func NewTranslation(id string, data map[string]string) (*Translation, error) {
+	translation := &Translation{
+		ID:          id,
+		PluralForms: make(map[Plural]*Template),
 	}
-	return translated
+	for k, v := range data {
+		switch k {
+		case "description":
+			translation.Description = v
+		default:
+			plural, err := NewPlural(k)
+			if err != nil {
+				return nil, err
+			}
+			tmpl, err := NewTemplate(v)
+			if err != nil {
+				return nil, err
+			}
+			translation.PluralForms[plural] = tmpl
+		}
+	}
+	return translation, nil
 }
 
-type Test struct {
-	Translations map[Plural]string
+// MustNewTranslation is similar to NewTranslation except it panics if an error happens.
+func MustNewTranslation(id string, data map[string]string) *Translation {
+	t, err := NewTranslation(id, data)
+	if err != nil {
+		panic(err)
+	}
+	return t
 }
 
-var t = &Test{
-	Translations: map[Plural]string{
-		Few: "World",
-	},
+// Translate returns the translated string for the plural form
+// and template data.
+func (t *Translation) Translate(plural Plural, data interface{}) string {
+	tmpl := t.PluralForms[plural]
+	return tmpl.Execute(data)
 }
