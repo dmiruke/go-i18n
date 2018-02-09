@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"regexp"
 
 	"github.com/BurntSushi/toml"
 	"gopkg.in/yaml.v2"
@@ -35,10 +34,6 @@ func (b *Bundle) MustLoadTranslationFile(path string) {
 		panic(err)
 	}
 }
-
-// LanguageTagRegex Matches language tags like en-US, and zh-Hans-CN.
-// Language tags are case-insensitive.
-var LanguageTagRegex = regexp.MustCompile(`[a-zA-Z]{2,}([\-_][a-zA-Z]{2,})+`)
 
 // ParseTranslationFileBytes parses the bytes in buf to add translations to the bundle.
 // It is useful for parsing translation files embedded with go-bindata.

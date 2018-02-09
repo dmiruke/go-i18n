@@ -7,7 +7,7 @@ import (
 	gotemplate "text/template"
 )
 
-// Template stores the template for a translation.
+// Template stores the template for a string.
 type Template struct {
 	Template *gotemplate.Template
 	Src      string
@@ -24,7 +24,7 @@ func (t *Template) String() string {
 	return t.Src
 }
 
-// Execute executes the translation template for the given data.
+// Execute executes the template for the given data.
 func (t *Template) Execute(data interface{}) string {
 	if t.Template == nil {
 		return t.Src

@@ -3,12 +3,65 @@ package i18n
 import (
 	"fmt"
 	"reflect"
+	"regexp"
+	"strings"
+	"unicode/utf8"
 )
+
+// LanguageTagRegex Matches language tags like en-US, and zh-Hans-CN.
+// Language tags are case-insensitive.
+var LanguageTagRegex = regexp.MustCompile(`[a-zA-Z]{2,}([\-_][a-zA-Z]{2,})+`)
 
 // Translator translates messages.
 type Translator struct {
-	LanguageTags []string
 	Bundle       *Bundle
+	LanguageTags []string
+}
+
+// NewTranslator returns a translator that looks up translations
+// in the bundle according to the order of language tags found in preferences.
+//
+// It can parse languages from Accept-Language headers (RFC 2616),
+// but it assumes weights are monotonically decreasing.
+func NewTranslator(bundle *Bundle, prefs string) *Translator {
+	translator := &Translator{
+		Bundle:       bundle,
+		LanguageTags: []string{},
+	}
+
+	langTags := LanguageTagRegex.FindAllString(prefs, -1)
+	var tags []string
+	for _, langTag := range langTags {
+		tags = append(tags, expandTag(langTag)...)
+	}
+	translator.LanguageTags = dedupe(tags)
+	return translator
+}
+
+func expandTag(tag string) []string {
+	tag = strings.TrimSpace(tag)
+	tag = strings.ToLower(tag)
+	tags := []string{tag}
+	for i := len(tag) - 1; i > 0; {
+		r, size := utf8.DecodeLastRuneInString(tag[:i])
+		i -= size
+		if r == '-' || r == '_' {
+			tags = append(tags, tag[:i])
+		}
+	}
+	return tags
+}
+
+func dedupe(strs []string) []string {
+	found := make(map[string]struct{}, len(strs))
+	deduped := make([]string, 0, len(strs))
+	for _, str := range strs {
+		if _, ok := found[str]; !ok {
+			found[str] = struct{}{}
+			deduped = append(deduped, str)
+		}
+	}
+	return deduped
 }
 
 // Translate iterates through language tags to find the first non-empty translation in the bundle.
