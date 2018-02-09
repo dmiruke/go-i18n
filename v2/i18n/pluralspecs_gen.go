@@ -18,7 +18,7 @@ func DefaultPluralSpecs() map[string]*PluralSpec {
 		PluralFunc: func(ops *Operands) Plural {
 			// i = 0 or n = 1
 			if intEqualsAny(ops.I, 0) ||
-				ops.NequalsAny(1) {
+				ops.NEqualsAny(1) {
 				return One
 			}
 			return Other
@@ -58,7 +58,7 @@ func DefaultPluralSpecs() map[string]*PluralSpec {
 		Plurals: newPluralSet(One, Other),
 		PluralFunc: func(ops *Operands) Plural {
 			// n = 0,1 or i = 0 and f = 1
-			if ops.NequalsAny(0, 1) ||
+			if ops.NEqualsAny(0, 1) ||
 				intEqualsAny(ops.I, 0) && intEqualsAny(ops.F, 1) {
 				return One
 			}
@@ -69,7 +69,7 @@ func DefaultPluralSpecs() map[string]*PluralSpec {
 		Plurals: newPluralSet(One, Other),
 		PluralFunc: func(ops *Operands) Plural {
 			// n = 0..1
-			if ops.NinRange(0, 1) {
+			if ops.NInRange(0, 1) {
 				return One
 			}
 			return Other
@@ -79,8 +79,8 @@ func DefaultPluralSpecs() map[string]*PluralSpec {
 		Plurals: newPluralSet(One, Other),
 		PluralFunc: func(ops *Operands) Plural {
 			// n = 0..1 or n = 11..99
-			if ops.NinRange(0, 1) ||
-				ops.NinRange(11, 99) {
+			if ops.NInRange(0, 1) ||
+				ops.NInRange(11, 99) {
 				return One
 			}
 			return Other
@@ -90,7 +90,7 @@ func DefaultPluralSpecs() map[string]*PluralSpec {
 		Plurals: newPluralSet(One, Other),
 		PluralFunc: func(ops *Operands) Plural {
 			// n = 1
-			if ops.NequalsAny(1) {
+			if ops.NEqualsAny(1) {
 				return One
 			}
 			return Other
@@ -100,7 +100,7 @@ func DefaultPluralSpecs() map[string]*PluralSpec {
 		Plurals: newPluralSet(One, Other),
 		PluralFunc: func(ops *Operands) Plural {
 			// n = 1 or t != 0 and i = 0,1
-			if ops.NequalsAny(1) ||
+			if ops.NEqualsAny(1) ||
 				!intEqualsAny(ops.T, 0) && intEqualsAny(ops.I, 0, 1) {
 				return One
 			}
@@ -145,13 +145,13 @@ func DefaultPluralSpecs() map[string]*PluralSpec {
 		Plurals: newPluralSet(Zero, One, Other),
 		PluralFunc: func(ops *Operands) Plural {
 			// n % 10 = 0 or n % 100 = 11..19 or v = 2 and f % 100 = 11..19
-			if ops.NmodEqualsAny(10, 0) ||
-				ops.NmodInRange(100, 11, 19) ||
+			if ops.NModEqualsAny(10, 0) ||
+				ops.NModInRange(100, 11, 19) ||
 				intEqualsAny(ops.V, 2) && intInRange(ops.F%100, 11, 19) {
 				return Zero
 			}
 			// n % 10 = 1 and n % 100 != 11 or v = 2 and f % 10 = 1 and f % 100 != 11 or v != 2 and f % 10 = 1
-			if ops.NmodEqualsAny(10, 1) && !ops.NmodEqualsAny(100, 11) ||
+			if ops.NModEqualsAny(10, 1) && !ops.NModEqualsAny(100, 11) ||
 				intEqualsAny(ops.V, 2) && intEqualsAny(ops.F%10, 1) && !intEqualsAny(ops.F%100, 11) ||
 				!intEqualsAny(ops.V, 2) && intEqualsAny(ops.F%10, 1) {
 				return One
@@ -163,11 +163,11 @@ func DefaultPluralSpecs() map[string]*PluralSpec {
 		Plurals: newPluralSet(Zero, One, Other),
 		PluralFunc: func(ops *Operands) Plural {
 			// n = 0
-			if ops.NequalsAny(0) {
+			if ops.NEqualsAny(0) {
 				return Zero
 			}
 			// i = 0,1 and n != 0
-			if intEqualsAny(ops.I, 0, 1) && !ops.NequalsAny(0) {
+			if intEqualsAny(ops.I, 0, 1) && !ops.NEqualsAny(0) {
 				return One
 			}
 			return Other
@@ -177,11 +177,11 @@ func DefaultPluralSpecs() map[string]*PluralSpec {
 		Plurals: newPluralSet(Zero, One, Other),
 		PluralFunc: func(ops *Operands) Plural {
 			// n = 0
-			if ops.NequalsAny(0) {
+			if ops.NEqualsAny(0) {
 				return Zero
 			}
 			// n = 1
-			if ops.NequalsAny(1) {
+			if ops.NEqualsAny(1) {
 				return One
 			}
 			return Other
@@ -191,11 +191,11 @@ func DefaultPluralSpecs() map[string]*PluralSpec {
 		Plurals: newPluralSet(One, Two, Other),
 		PluralFunc: func(ops *Operands) Plural {
 			// n = 1
-			if ops.NequalsAny(1) {
+			if ops.NEqualsAny(1) {
 				return One
 			}
 			// n = 2
-			if ops.NequalsAny(2) {
+			if ops.NEqualsAny(2) {
 				return Two
 			}
 			return Other
@@ -206,11 +206,11 @@ func DefaultPluralSpecs() map[string]*PluralSpec {
 		PluralFunc: func(ops *Operands) Plural {
 			// i = 0 or n = 1
 			if intEqualsAny(ops.I, 0) ||
-				ops.NequalsAny(1) {
+				ops.NEqualsAny(1) {
 				return One
 			}
 			// n = 2..10
-			if ops.NinRange(2, 10) {
+			if ops.NInRange(2, 10) {
 				return Few
 			}
 			return Other
@@ -225,8 +225,8 @@ func DefaultPluralSpecs() map[string]*PluralSpec {
 			}
 			// v != 0 or n = 0 or n != 1 and n % 100 = 1..19
 			if !intEqualsAny(ops.V, 0) ||
-				ops.NequalsAny(0) ||
-				!ops.NequalsAny(1) && ops.NmodInRange(100, 1, 19) {
+				ops.NEqualsAny(0) ||
+				!ops.NEqualsAny(1) && ops.NModInRange(100, 1, 19) {
 				return Few
 			}
 			return Other
@@ -252,15 +252,15 @@ func DefaultPluralSpecs() map[string]*PluralSpec {
 		Plurals: newPluralSet(One, Two, Few, Other),
 		PluralFunc: func(ops *Operands) Plural {
 			// n = 1,11
-			if ops.NequalsAny(1, 11) {
+			if ops.NEqualsAny(1, 11) {
 				return One
 			}
 			// n = 2,12
-			if ops.NequalsAny(2, 12) {
+			if ops.NEqualsAny(2, 12) {
 				return Two
 			}
 			// n = 3..10,13..19
-			if ops.NinRange(3, 10) || ops.NinRange(13, 19) {
+			if ops.NInRange(3, 10) || ops.NInRange(13, 19) {
 				return Few
 			}
 			return Other
@@ -318,7 +318,7 @@ func DefaultPluralSpecs() map[string]*PluralSpec {
 				return Two
 			}
 			// v = 0 and n != 0..10 and n % 10 = 0
-			if intEqualsAny(ops.V, 0) && !ops.NinRange(0, 10) && ops.NmodEqualsAny(10, 0) {
+			if intEqualsAny(ops.V, 0) && !ops.NInRange(0, 10) && ops.NModEqualsAny(10, 0) {
 				return Many
 			}
 			return Other
@@ -366,17 +366,17 @@ func DefaultPluralSpecs() map[string]*PluralSpec {
 		Plurals: newPluralSet(One, Few, Many, Other),
 		PluralFunc: func(ops *Operands) Plural {
 			// n % 10 = 1 and n % 100 != 11
-			if ops.NmodEqualsAny(10, 1) && !ops.NmodEqualsAny(100, 11) {
+			if ops.NModEqualsAny(10, 1) && !ops.NModEqualsAny(100, 11) {
 				return One
 			}
 			// n % 10 = 2..4 and n % 100 != 12..14
-			if ops.NmodInRange(10, 2, 4) && !ops.NmodInRange(100, 12, 14) {
+			if ops.NModInRange(10, 2, 4) && !ops.NModInRange(100, 12, 14) {
 				return Few
 			}
 			// n % 10 = 0 or n % 10 = 5..9 or n % 100 = 11..14
-			if ops.NmodEqualsAny(10, 0) ||
-				ops.NmodInRange(10, 5, 9) ||
-				ops.NmodInRange(100, 11, 14) {
+			if ops.NModEqualsAny(10, 0) ||
+				ops.NModInRange(10, 5, 9) ||
+				ops.NModInRange(100, 11, 14) {
 				return Many
 			}
 			return Other
@@ -386,11 +386,11 @@ func DefaultPluralSpecs() map[string]*PluralSpec {
 		Plurals: newPluralSet(One, Few, Many, Other),
 		PluralFunc: func(ops *Operands) Plural {
 			// n % 10 = 1 and n % 100 != 11..19
-			if ops.NmodEqualsAny(10, 1) && !ops.NmodInRange(100, 11, 19) {
+			if ops.NModEqualsAny(10, 1) && !ops.NModInRange(100, 11, 19) {
 				return One
 			}
 			// n % 10 = 2..9 and n % 100 != 11..19
-			if ops.NmodInRange(10, 2, 9) && !ops.NmodInRange(100, 11, 19) {
+			if ops.NModInRange(10, 2, 9) && !ops.NModInRange(100, 11, 19) {
 				return Few
 			}
 			// f != 0
@@ -404,16 +404,16 @@ func DefaultPluralSpecs() map[string]*PluralSpec {
 		Plurals: newPluralSet(One, Few, Many, Other),
 		PluralFunc: func(ops *Operands) Plural {
 			// n = 1
-			if ops.NequalsAny(1) {
+			if ops.NEqualsAny(1) {
 				return One
 			}
 			// n = 0 or n % 100 = 2..10
-			if ops.NequalsAny(0) ||
-				ops.NmodInRange(100, 2, 10) {
+			if ops.NEqualsAny(0) ||
+				ops.NModInRange(100, 2, 10) {
 				return Few
 			}
 			// n % 100 = 11..19
-			if ops.NmodInRange(100, 11, 19) {
+			if ops.NModInRange(100, 11, 19) {
 				return Many
 			}
 			return Other
@@ -443,19 +443,19 @@ func DefaultPluralSpecs() map[string]*PluralSpec {
 		Plurals: newPluralSet(One, Two, Few, Many, Other),
 		PluralFunc: func(ops *Operands) Plural {
 			// n % 10 = 1 and n % 100 != 11,71,91
-			if ops.NmodEqualsAny(10, 1) && !ops.NmodEqualsAny(100, 11, 71, 91) {
+			if ops.NModEqualsAny(10, 1) && !ops.NModEqualsAny(100, 11, 71, 91) {
 				return One
 			}
 			// n % 10 = 2 and n % 100 != 12,72,92
-			if ops.NmodEqualsAny(10, 2) && !ops.NmodEqualsAny(100, 12, 72, 92) {
+			if ops.NModEqualsAny(10, 2) && !ops.NModEqualsAny(100, 12, 72, 92) {
 				return Two
 			}
 			// n % 10 = 3..4,9 and n % 100 != 10..19,70..79,90..99
-			if (ops.NmodInRange(10, 3, 4) || ops.NmodEqualsAny(10, 9)) && !(ops.NmodInRange(100, 10, 19) || ops.NmodInRange(100, 70, 79) || ops.NmodInRange(100, 90, 99)) {
+			if (ops.NModInRange(10, 3, 4) || ops.NModEqualsAny(10, 9)) && !(ops.NModInRange(100, 10, 19) || ops.NModInRange(100, 70, 79) || ops.NModInRange(100, 90, 99)) {
 				return Few
 			}
 			// n != 0 and n % 1000000 = 0
-			if !ops.NequalsAny(0) && ops.NmodEqualsAny(1000000, 0) {
+			if !ops.NEqualsAny(0) && ops.NModEqualsAny(1000000, 0) {
 				return Many
 			}
 			return Other
@@ -465,19 +465,19 @@ func DefaultPluralSpecs() map[string]*PluralSpec {
 		Plurals: newPluralSet(One, Two, Few, Many, Other),
 		PluralFunc: func(ops *Operands) Plural {
 			// n = 1
-			if ops.NequalsAny(1) {
+			if ops.NEqualsAny(1) {
 				return One
 			}
 			// n = 2
-			if ops.NequalsAny(2) {
+			if ops.NEqualsAny(2) {
 				return Two
 			}
 			// n = 3..6
-			if ops.NinRange(3, 6) {
+			if ops.NInRange(3, 6) {
 				return Few
 			}
 			// n = 7..10
-			if ops.NinRange(7, 10) {
+			if ops.NInRange(7, 10) {
 				return Many
 			}
 			return Other
@@ -509,23 +509,23 @@ func DefaultPluralSpecs() map[string]*PluralSpec {
 		Plurals: newPluralSet(Zero, One, Two, Few, Many, Other),
 		PluralFunc: func(ops *Operands) Plural {
 			// n = 0
-			if ops.NequalsAny(0) {
+			if ops.NEqualsAny(0) {
 				return Zero
 			}
 			// n = 1
-			if ops.NequalsAny(1) {
+			if ops.NEqualsAny(1) {
 				return One
 			}
 			// n = 2
-			if ops.NequalsAny(2) {
+			if ops.NEqualsAny(2) {
 				return Two
 			}
 			// n % 100 = 3..10
-			if ops.NmodInRange(100, 3, 10) {
+			if ops.NModInRange(100, 3, 10) {
 				return Few
 			}
 			// n % 100 = 11..99
-			if ops.NmodInRange(100, 11, 99) {
+			if ops.NModInRange(100, 11, 99) {
 				return Many
 			}
 			return Other
@@ -535,23 +535,23 @@ func DefaultPluralSpecs() map[string]*PluralSpec {
 		Plurals: newPluralSet(Zero, One, Two, Few, Many, Other),
 		PluralFunc: func(ops *Operands) Plural {
 			// n = 0
-			if ops.NequalsAny(0) {
+			if ops.NEqualsAny(0) {
 				return Zero
 			}
 			// n = 1
-			if ops.NequalsAny(1) {
+			if ops.NEqualsAny(1) {
 				return One
 			}
 			// n = 2
-			if ops.NequalsAny(2) {
+			if ops.NEqualsAny(2) {
 				return Two
 			}
 			// n = 3
-			if ops.NequalsAny(3) {
+			if ops.NEqualsAny(3) {
 				return Few
 			}
 			// n = 6
-			if ops.NequalsAny(6) {
+			if ops.NEqualsAny(6) {
 				return Many
 			}
 			return Other

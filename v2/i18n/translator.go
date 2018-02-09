@@ -5,10 +5,10 @@ import (
 	"reflect"
 )
 
+// Translator translates messages.
 type Translator struct {
 	LanguageTags []string
 	Bundle       *Bundle
-	// DefaultLanguageTag string
 }
 
 // Translate iterates through language tags to find the first non-empty translation in the bundle.

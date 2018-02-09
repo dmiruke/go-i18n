@@ -16,8 +16,8 @@ type Operands struct {
 	T int64   // visible fractional digits in n, without trailing zeros
 }
 
-// NequalsAny returns true if o represents an integer equal to any of the arguments.
-func (o *Operands) NequalsAny(any ...int64) bool {
+// NEqualsAny returns true if o represents an integer equal to any of the arguments.
+func (o *Operands) NEqualsAny(any ...int64) bool {
 	for _, i := range any {
 		if o.I == i && o.T == 0 {
 			return true
@@ -26,8 +26,8 @@ func (o *Operands) NequalsAny(any ...int64) bool {
 	return false
 }
 
-// NmodEqualsAny returns true if o represents an integer equal to any of the arguments modulo mod.
-func (o *Operands) NmodEqualsAny(mod int64, any ...int64) bool {
+// NModEqualsAny returns true if o represents an integer equal to any of the arguments modulo mod.
+func (o *Operands) NModEqualsAny(mod int64, any ...int64) bool {
 	modI := o.I % mod
 	for _, i := range any {
 		if modI == i && o.T == 0 {
@@ -37,13 +37,13 @@ func (o *Operands) NmodEqualsAny(mod int64, any ...int64) bool {
 	return false
 }
 
-// NinRange returns true if o represents an integer in the closed interval [from, to].
-func (o *Operands) NinRange(from, to int64) bool {
+// NInRange returns true if o represents an integer in the closed interval [from, to].
+func (o *Operands) NInRange(from, to int64) bool {
 	return o.T == 0 && from <= o.I && o.I <= to
 }
 
-// NmodInRange returns true if o represents an integer in the closed interval [from, to] modulo mod.
-func (o *Operands) NmodInRange(mod, from, to int64) bool {
+// NModInRange returns true if o represents an integer in the closed interval [from, to] modulo mod.
+func (o *Operands) NModInRange(mod, from, to int64) bool {
 	modI := o.I % mod
 	return o.T == 0 && from <= modI && modI <= to
 }

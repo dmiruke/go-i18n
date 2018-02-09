@@ -1,5 +1,7 @@
 package i18n
 
+// TODO: rename to message?
+
 // Translation contains the data for a single translation.
 type Translation struct {
 	ID          string
