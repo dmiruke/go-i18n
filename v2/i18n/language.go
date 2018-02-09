@@ -8,5 +8,5 @@ type Language struct {
 	// optionally followed by a dash and a two character country code (ISO 3166-1).
 	// (e.g. en, pt-br)
 	Tag string
-	*PluralSpec
+	*PluralRule
 }

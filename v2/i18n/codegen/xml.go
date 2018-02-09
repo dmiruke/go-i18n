@@ -100,9 +100,9 @@ func (pr *PluralRule) GoCondition() string {
 					from, to := parts[0], parts[1]
 					if lvar == "ops.N" {
 						if lmod != "" {
-							rhor = append(rhor, fmt.Sprintf("ops.NmodInRange(%s, %s, %s)", lmod, from, to))
+							rhor = append(rhor, fmt.Sprintf("ops.NModInRange(%s, %s, %s)", lmod, from, to))
 						} else {
-							rhor = append(rhor, fmt.Sprintf("ops.NinRange(%s, %s)", from, to))
+							rhor = append(rhor, fmt.Sprintf("ops.NInRange(%s, %s)", from, to))
 						}
 					} else if lmod != "" {
 						rhor = append(rhor, fmt.Sprintf("intInRange(%s %% %s, %s, %s)", lvar, lmod, from, to))
@@ -118,9 +118,9 @@ func (pr *PluralRule) GoCondition() string {
 				rh := strings.Join(rany, ",")
 				if lvar == "ops.N" {
 					if lmod != "" {
-						rhor = append(rhor, fmt.Sprintf("ops.NmodEqualsAny(%s, %s)", lmod, rh))
+						rhor = append(rhor, fmt.Sprintf("ops.NModEqualsAny(%s, %s)", lmod, rh))
 					} else {
-						rhor = append(rhor, fmt.Sprintf("ops.NequalsAny(%s)", rh))
+						rhor = append(rhor, fmt.Sprintf("ops.NEqualsAny(%s)", rh))
 					}
 				} else if lmod != "" {
 					rhor = append(rhor, fmt.Sprintf("intEqualsAny(%s %% %s, %s)", lvar, lmod, rh))

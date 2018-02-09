@@ -2,17 +2,17 @@ package i18n
 
 import "strings"
 
-// PluralSpec defines the CLDR plural rules for a language.
+// PluralRule defines the CLDR plural rules for a language.
 // http://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html
 // http://unicode.org/reports/tr35/tr35-numbers.html#Operands
-type PluralSpec struct {
+type PluralRule struct {
 	Plurals    map[Plural]struct{}
 	PluralFunc func(*Operands) Plural
 }
 
 // Plural returns the plural category for number as defined by
 // the language's CLDR plural rules.
-func (ps *PluralSpec) Plural(number interface{}) (Plural, error) {
+func (ps *PluralRule) Plural(number interface{}) (Plural, error) {
 	ops, err := newOperands(number)
 	if err != nil {
 		return Invalid, err
@@ -20,16 +20,16 @@ func (ps *PluralSpec) Plural(number interface{}) (Plural, error) {
 	return ps.PluralFunc(ops), nil
 }
 
-func normalizePluralSpecID(id string) string {
+func normalizePluralRuleID(id string) string {
 	id = strings.Replace(id, "_", "-", -1)
 	id = strings.ToLower(id)
 	return id
 }
 
-func addPluralSpecs(specs map[string]*PluralSpec, ids []string, ps *PluralSpec) {
+func addPluralRules(rules map[string]*PluralRule, ids []string, ps *PluralRule) {
 	for _, id := range ids {
-		id = normalizePluralSpecID(id)
-		specs[id] = ps
+		id = normalizePluralRuleID(id)
+		rules[id] = ps
 	}
 }
 

@@ -15,7 +15,7 @@ import (
 // that is initialized early in your application's lifecycle.
 type Bundle struct {
 	Translations map[string]map[string]*Translation
-	PluralSpecs  map[string]*PluralSpec
+	PluralRules  map[string]*PluralRule
 }
 
 // LoadTranslationFile loads the bytes from path
@@ -68,8 +68,8 @@ func (b *Bundle) MustParseTranslationFileBytes(buf []byte, path string) {
 // AddTranslations adds translations for a language.
 // It is useful if your translations are in a format not supported by ParseTranslationFileBytes.
 func (b *Bundle) AddTranslations(langTag string, translations ...*Translation) error {
-	if b.PluralSpecs == nil {
-		b.PluralSpecs = DefaultPluralSpecs()
+	if b.PluralRules == nil {
+		b.PluralRules = DefaultPluralRules()
 	}
 	pluralID := langTag
 	for i, r := range langTag {
@@ -78,11 +78,11 @@ func (b *Bundle) AddTranslations(langTag string, translations ...*Translation) e
 			break
 		}
 	}
-	pluralSpec := b.PluralSpecs[pluralID]
-	if pluralSpec == nil {
-		return fmt.Errorf("no plural spec registered for %s", pluralID)
+	pluralRule := b.PluralRules[pluralID]
+	if pluralRule == nil {
+		return fmt.Errorf("no plural rule registered for %s", pluralID)
 	}
-	b.PluralSpecs[langTag] = pluralSpec
+	b.PluralRules[langTag] = pluralRule
 	if b.Translations == nil {
 		b.Translations = make(map[string]map[string]*Translation)
 	}

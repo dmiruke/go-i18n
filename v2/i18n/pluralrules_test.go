@@ -11,17 +11,17 @@ type pluralTest struct {
 	plural Plural
 }
 
-func runTests(t *testing.T, pluralSpecID string, tests []pluralTest) {
-	pluralSpecID = normalizePluralSpecID(pluralSpecID)
-	pluralSpecs := DefaultPluralSpecs()
-	if spec := pluralSpecs[pluralSpecID]; spec != nil {
+func runTests(t *testing.T, pluralRuleID string, tests []pluralTest) {
+	pluralRuleID = normalizePluralRuleID(pluralRuleID)
+	pluralRules := DefaultPluralRules()
+	if rule := pluralRules[pluralRuleID]; rule != nil {
 		for _, test := range tests {
-			if plural, err := spec.Plural(test.num); plural != test.plural {
-				t.Errorf("%s: PluralCategory(%#v) returned %s, %v; expected %s", pluralSpecID, test.num, plural, err, test.plural)
+			if plural, err := rule.Plural(test.num); plural != test.plural {
+				t.Errorf("%s: PluralCategory(%#v) returned %s, %v; expected %s", pluralRuleID, test.num, plural, err, test.plural)
 			}
 		}
 	} else {
-		t.Errorf("could not find plural spec for locale %s", pluralSpecID)
+		t.Errorf("could not find plural rule for locale %s", pluralRuleID)
 	}
 
 }

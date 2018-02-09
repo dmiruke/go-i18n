@@ -26,12 +26,12 @@ func (t *Translator) Translate(id, defaultTranslation string, args ...interface{
 		if translation == nil {
 			continue
 		}
-		pluralSpec := t.Bundle.PluralSpecs[langTag]
-		if pluralSpec == nil {
+		pluralRule := t.Bundle.PluralRules[langTag]
+		if pluralRule == nil {
 			continue
 		}
 		pluralCount, data := parseArgs(args)
-		plural, err := pluralSpec.Plural(pluralCount)
+		plural, err := pluralRule.Plural(pluralCount)
 		if err != nil {
 			return fmt.Sprintf("[ERR][%s] %s", id, err.Error())
 		}
