@@ -6,12 +6,17 @@ import (
 )
 
 type Translator struct {
-	LanguageTags       []string
-	Bundle             *Bundle
-	DefaultLanguageTag string
+	LanguageTags []string
+	Bundle       *Bundle
+	// DefaultLanguageTag string
 }
 
+// Translate iterates through language tags to find the first non-empty translation in the bundle.
+// It returns the default translation if no other translation is found.
 func (t *Translator) Translate(id, defaultTranslation string, args ...interface{}) string {
+	if len(args) > 2 {
+		panic("too many args passed to Localize")
+	}
 	for _, langTag := range t.LanguageTags {
 		translations := t.Bundle.Translations[langTag]
 		if translations == nil {
@@ -40,9 +45,6 @@ func (t *Translator) Translate(id, defaultTranslation string, args ...interface{
 }
 
 func parseArgs(args []interface{}) (count interface{}, data interface{}) {
-	if len(args) > 2 {
-		panic("too many args passed to Localize")
-	}
 	if argc := len(args); argc > 0 {
 		if isNumber(args[0]) {
 			count = args[0]

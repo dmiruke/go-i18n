@@ -7,10 +7,10 @@ import (
 	gotemplate "text/template"
 )
 
-// TODO: rename tmpl, src
+// Template stores the template for a translation.
 type Template struct {
-	tmpl *gotemplate.Template
-	src  string
+	Template *gotemplate.Template
+	Src      string
 }
 
 // NewTemplate returns a new template from src.
@@ -21,16 +21,16 @@ func NewTemplate(src string) (*Template, error) {
 }
 
 func (t *Template) String() string {
-	return t.src
+	return t.Src
 }
 
 // Execute executes the translation template for the given data.
 func (t *Template) Execute(data interface{}) string {
-	if t.tmpl == nil {
-		return t.src
+	if t.Template == nil {
+		return t.Src
 	}
 	var buf bytes.Buffer
-	if err := t.tmpl.Execute(&buf, data); err != nil {
+	if err := t.Template.Execute(&buf, data); err != nil {
 		return err.Error()
 	}
 	return buf.String()
@@ -38,7 +38,7 @@ func (t *Template) Execute(data interface{}) string {
 
 // MarshalText implements the TextMarshaler interface.
 func (t *Template) MarshalText() ([]byte, error) {
-	return []byte(t.src), nil
+	return []byte(t.Src), nil
 }
 
 // UnmarshalText implements the TextUnmarshaler interface.
@@ -47,9 +47,9 @@ func (t *Template) UnmarshalText(src []byte) error {
 }
 
 func (t *Template) parseTemplate(src string) (err error) {
-	t.src = src
+	t.Src = src
 	if strings.Contains(src, "{{") {
-		t.tmpl, err = gotemplate.New(src).Parse(src)
+		t.Template, err = gotemplate.New(src).Parse(src)
 	}
 	return
 }

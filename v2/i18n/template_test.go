@@ -10,8 +10,8 @@ import (
 func TestNilTemplate(t *testing.T) {
 	expected := "hello"
 	tmpl := &Template{
-		tmpl: nil,
-		src:  expected,
+		Template: nil,
+		Src:      expected,
 	}
 	if actual := tmpl.Execute(nil); actual != expected {
 		t.Errorf("Execute(nil) returned %s; expected %s", actual, expected)
@@ -20,10 +20,10 @@ func TestNilTemplate(t *testing.T) {
 
 func TestMarshalText(t *testing.T) {
 	tmpl := &Template{
-		tmpl: gotemplate.Must(gotemplate.New("id").Parse("this is a {{.foo}} template")),
-		src:  "boom",
+		Template: gotemplate.Must(gotemplate.New("id").Parse("this is a {{.foo}} template")),
+		Src:      "boom",
 	}
-	expectedBuf := []byte(tmpl.src)
+	expectedBuf := []byte(tmpl.Src)
 	if buf, err := tmpl.MarshalText(); !bytes.Equal(buf, expectedBuf) || err != nil {
 		t.Errorf("MarshalText() returned %#v, %#v; expected %#v, nil", buf, err, expectedBuf)
 	}
@@ -44,7 +44,7 @@ func TestUnmarshalText(t *testing.T) {
 var benchmarkResult string
 
 func BenchmarkExecuteNilTemplate(b *testing.B) {
-	template := &Template{src: "hello world"}
+	template := &Template{Src: "hello world"}
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		benchmarkResult = template.Execute(nil)
